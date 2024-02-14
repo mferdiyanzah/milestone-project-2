@@ -67,7 +67,11 @@ const LoginForm = () => {
       </Form.Item>
       <Row justify="space-between" align="middle">
         <button
-          className={"px-8 py-2 text-white rounded-md text-base bg-blue-900"}
+          className={`px-8 py-2 text-white rounded-md text-base ${
+            isLoginBtnDisabled
+              ? "cursor-not-allowed bg-gray-200"
+              : "bg-blue-900"
+          }`}
           disabled={isLoginBtnDisabled}
           onClick={onLogin}
         >

@@ -1,5 +1,5 @@
 import { Col, Row, Steps } from "antd";
-import { createContext, useState } from "react";
+import { createContext, useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { IRegisterForm } from "./register.interface.ts";
 import PersonalInformation from "../../components/personal-information/index.tsx";
@@ -20,20 +20,15 @@ const Register = () => {
   const [formData, setFormData] = useState<IRegisterForm>();
   const [currentStep, setCurrentStep] = useState(0);
 
-  const onNext = () => {
-    setCurrentStep((prevStep) => prevStep + 1);
-  };
-
-  const onPrev = () => {
-    setCurrentStep((prevStep) => prevStep - 1);
-  };
-
-  const contextValue = {
-    formData,
-    setFormData,
-    onNext,
-    onPrev,
-  };
+  const contextValue = useMemo(
+    () => ({
+      formData,
+      setFormData,
+      onNext: () => setCurrentStep((prevStep) => prevStep + 1),
+      onPrev: () => setCurrentStep((prevStep) => prevStep - 1),
+    }),
+    [formData, setFormData]
+  );
 
   const steps = [
     t("personal_information"),

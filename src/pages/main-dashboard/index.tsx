@@ -1,19 +1,18 @@
 import { Space } from "antd";
 import { useTranslation } from "react-i18next";
-import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 const MainDashboard = () => {
   const { t } = useTranslation();
-  const [user] = useLocalStorage("fullName", "");
+  const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
 
-  if (!user) navigate("/auth/register");
+  if (!currentUser) navigate("/auth/register");
 
   const onClickLogout = () => {
-    localStorage.removeItem("fullName");
-    localStorage.removeItem("registerData");
-    navigate("/auth/register");
+    logout();
+    navigate("/auth/login");
   };
 
   return (
@@ -21,7 +20,7 @@ const MainDashboard = () => {
       <div>
         <h3 className="mb-4 text-2xl font-semibold">{t("greetingMessage")}</h3>
         <p className="text-lg">
-          {t("helloMessage")} {user}!
+          {t("helloMessage")} {currentUser?.fullName}!
         </p>
         <button
           onClick={onClickLogout}
