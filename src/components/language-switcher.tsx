@@ -1,7 +1,7 @@
 import { Switch } from "antd";
 import i18n from "i18next";
 
-const LanguageSwitcher = () => {
+const LanguageSwitcher = ({ isAbsolute = true }: { isAbsolute?: boolean }) => {
   return (
     <Switch
       checkedChildren="ID"
@@ -9,7 +9,9 @@ const LanguageSwitcher = () => {
       onChange={(checked) => {
         i18n.changeLanguage(checked ? "id" : "en");
       }}
-      className="absolute top-4 right-4 bg-blue-500 hover:bg-blue-600"
+      className={`${
+        isAbsolute && "absolute top-4 right-4"
+      } bg-blue-500 hover:bg-blue-600`}
     />
   );
 };

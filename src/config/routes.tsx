@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import DashboardLayout from "../layouts/dashboard.layout";
 import Register from "../pages/register";
 import GeneralLayout from "../layouts/general.layout";
-import MainDashboard from "../pages/main-dashboard";
+import Cart from "../pages/cart";
 import Login from "../pages/login";
 import NotFound from "../pages/not-found";
 
@@ -12,12 +12,12 @@ const router = createBrowserRouter([
     element: <NotFound />,
   },
   {
-    path: "/",
+    path: "/cart",
     element: <DashboardLayout />,
     children: [
       {
         path: "",
-        element: <MainDashboard />,
+        element: <Cart />,
       },
     ],
   },

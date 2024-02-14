@@ -8,7 +8,7 @@ const GeneralLayout = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (currentUser) navigate("/");
+    if (currentUser) navigate("/cart");
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

@@ -62,3 +62,7 @@ textarea {
 .anticon.anticon-info-circle {
   color: #3f72af !important;
 }
+
+.ant-divider {
+  border-block-start: 1px solid #3f72af !important;
+}
