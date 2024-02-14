@@ -59,6 +59,10 @@ export const resources = {
       helloMessage: "Hello, ",
       logout: "Logout",
       login: "Login",
+      loginSuccess: "You have successfully logged in!",
+      loginError: "Invalid username or password!",
+      noAccount: "Don't have an account?",
+      haveAccount: "Already have an account?",
     },
   },
   id: {
@@ -117,6 +121,10 @@ export const resources = {
       helloMessage: "Halo, ",
       logout: "Keluar",
       login: "Masuk",
+      loginSuccess: "Anda telah berhasil masuk!",
+      loginError: "Username atau kata sandi salah!",
+      noAccount: "Belum punya akun?",
+      haveAccount: "Sudah punya akun?",
     },
   },
 };

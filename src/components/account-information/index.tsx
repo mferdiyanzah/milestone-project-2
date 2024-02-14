@@ -1,9 +1,9 @@
 import { Form, Input, Modal, Row } from "antd";
 import { useEffect, useState } from "react";
-import useFormContext from "../../pages/register/register.context";
 import { useTranslation } from "react-i18next";
-import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
+import useFormContext from "../../pages/register/register.context";
 
 const AccountInformation = () => {
   const { t } = useTranslation();
@@ -11,7 +11,7 @@ const AccountInformation = () => {
   const [form] = Form.useForm();
   const formValues = Form.useWatch([], form);
   const [isBtnDisabled, setIsBtnDisabled] = useState(true);
-  const [, setUser] = useLocalStorage("fullName", "");
+  const { register } = useAuth();
 
   const navigate = useNavigate();
 
@@ -83,14 +83,13 @@ const AccountInformation = () => {
     setFormData({ ...formData, ...values });
 
     const registerData = JSON.stringify(formData);
-    localStorage.setItem("registerData", registerData);
-    setUser(formData?.fullName);
+    register(JSON.parse(registerData));
     Modal.info({
       title: t("successTitle"),
       content: `${t("successRegister")} ${values.username}!`,
       centered: true,
       onOk: () => {
-        navigate("/");
+        navigate("/auth/login");
       },
     });
   };

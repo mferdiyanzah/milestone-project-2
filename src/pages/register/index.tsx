@@ -5,6 +5,7 @@ import { IRegisterForm } from "./register.interface.ts";
 import PersonalInformation from "../../components/personal-information/index.tsx";
 import AddressInformation from "../../components/address-information/index.tsx";
 import AccountInformation from "../../components/account-information/index.tsx";
+import { Link } from "react-router-dom";
 
 export const RegistrationFormContext = createContext({
   formData: {} as IRegisterForm | undefined,
@@ -63,7 +64,7 @@ const Register = () => {
       <Col
         xl={{ flex: "60%" }}
         sm={{ flex: "100%" }}
-        className="w-full lg:pl-10 flex lg:items-center"
+        className="w-full lg:pl-10 flex flex-col lg:justify-center lg:items-center"
       >
         <RegistrationFormContext.Provider value={contextValue}>
           {currentStep === 0 ? <PersonalInformation /> : null}
@@ -72,6 +73,13 @@ const Register = () => {
 
           {currentStep === 2 ? <AccountInformation /> : null}
         </RegistrationFormContext.Provider>
+
+        <p>
+          {t("haveAccount")}{" "}
+          <Link to="/auth/login" className="text-blue-900 underline">
+            {t("login")}
+          </Link>
+        </p>
       </Col>
     </Row>
   );
