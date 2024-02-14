@@ -41,7 +41,7 @@ const Cart = () => {
   };
 
   return (
-    <Space direction="vertical" size="large" className="mx-0 w-4/6">
+    <Space direction="vertical" size="large" className="mx-0 w-full xl:w-4/6">
       <Row justify="space-between" align="middle">
         <h1 className="text-3xl m-0 font-bold">{t("cart")}</h1>
         <button
@@ -53,7 +53,7 @@ const Cart = () => {
       </Row>
       <Divider className="m-0" />
       <Row gutter={[16, 16]}>
-        <Col span={18}>
+        <Col lg={{ flex: "70%" }} xs={{ flex: "100%" }}>
           <Flex vertical gap="1em" wrap="wrap">
             {productList.length === 0 ? (
               <h2 className="text-2xl">{t("emptyCart")}</h2>
@@ -64,7 +64,11 @@ const Cart = () => {
             )}
           </Flex>
         </Col>
-        <Col span={6} className="font-semibold">
+        <Col
+          lg={{ flex: "30%" }}
+          xs={{ flex: "100%" }}
+          className="font-semibold"
+        >
           <h2 className="text-xl">{t("summary")}</h2>
           <Divider />
           <Row justify="space-between">
@@ -75,9 +79,6 @@ const Cart = () => {
             <p>{t("totalPrice")}</p>
             <p>{totalPrice}</p>
           </Row>
-          <button className="w-full bg-blue-900 mt-4 hover:bg-blue-800 text-white p-2 rounded">
-            Checkout
-          </button>
         </Col>
       </Row>
 

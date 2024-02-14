@@ -13,11 +13,15 @@ const CartCard = ({ product }: { product: IProduct }) => {
   }).format(product.price);
 
   return (
-    <Row className="pb-2 w-full gap-4">
-      <Col span={4}>
+    <Row className="pb-2 w-full">
+      <Col xs={{ flex: "100%" }} lg={{ flex: "20%" }}>
         <RandomAvatar name={product.name} size={150} />
       </Col>
-      <Col span={18} className="flex justify-between flex-col font-semibold">
+      <Col
+        xs={{ flex: "100%" }}
+        lg={{ flex: "80%" }}
+        className="flex justify-between flex-col font-semibold"
+      >
         <h3 className="m-0 text-xl">{product.name}</h3>
         <Row justify="space-between" align="middle" className="text-base">
           <p className="m-0">
