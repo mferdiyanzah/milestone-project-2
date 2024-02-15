@@ -70,9 +70,21 @@ We used a clean and minimalist layout for the app, with plenty of white space an
 
 ![Account Information](./public/docs/doc-3.png)
 
-#### Dashboard
+#### Cart
 
-![Dashboard](./public/docs/doc-5.png)
+![Cart](./public/docs/doc-5.png)
+
+![Add Product](./public/docs/doc-6.png)
+
+![Product List](./public/docs/doc-7.png)
+
+#### Unauthorized Access
+
+![Unauthorized](./public/docs/doc-8.png)
+
+#### Not Found
+
+![404](./public/docs/doc-9.png)
 
 #### Mobile View
 
@@ -80,4 +92,4 @@ We used a clean and minimalist layout for the app, with plenty of white space an
 
 ### Demonstration Video
 
-[Here](https://drive.google.com/file/d/1lxXSKGhlWrSBymXQPlF9MW6wlsXB1HE4/view?usp=sharing)
+[Here](https://drive.google.com/file/d/1EsVdf0iCKhtCx6Y0KEo_P2AZeqUYHT5V/view?usp=sharing)
