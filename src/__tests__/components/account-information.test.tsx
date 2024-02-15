@@ -1,7 +1,7 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import AccountInformation from "../../components/account-information";
-import userEvent from "@testing-library/user-event";
+import { act } from "react-dom/test-utils";
 import { BrowserRouter } from "react-router-dom";
+import AccountInformation from "../../components/account-information";
 
 describe("AccountInformation", () => {
   const renderComponent = () => {
@@ -38,10 +38,12 @@ describe("AccountInformation", () => {
     fireEvent.change(screen.getByLabelText("username"), {
       target: { value: "john.doe" },
     });
+    await act(async () => {});
     expect(screen.getByLabelText("username")).toHaveValue("john.doe");
 
-    await userEvent.type(screen.getByLabelText("password"), "Password123!");
-
+    fireEvent.change(screen.getByLabelText("password"), {
+      target: { value: "Password123!" },
+    });
     await waitFor(() => {
       expect(screen.getByLabelText("password")).toHaveValue("Password123!");
     });
@@ -57,11 +59,9 @@ describe("AccountInformation", () => {
       expect(screen.getByText("finishButton")).toBeEnabled();
     });
 
-    screen.getByText("finishButton").click();
-    await waitFor(() => {
-      // Assert that the success modal is displayed
-      expect(screen.getByText("successTitle")).toBeInTheDocument();
-    });
+    fireEvent.click(screen.getByText("finishButton"));
+    await act(async () => {});
+    expect(screen.getByText("successTitle")).toBeInTheDocument();
   });
 
   test("disables the Finish button when passwords do not match", async () => {
@@ -71,12 +71,22 @@ describe("AccountInformation", () => {
     fireEvent.change(screen.getByLabelText("username"), {
       target: { value: "john.doe" },
     });
+    await act(async () => {});
+    expect(screen.getByLabelText("username")).toHaveValue("john.doe");
+
     fireEvent.change(screen.getByLabelText("password"), {
       target: { value: "Password123!" },
     });
+    await act(async () => {});
+    expect(screen.getByLabelText("password")).toHaveValue("Password123!");
+
     fireEvent.change(screen.getByLabelText("confirmPassword"), {
       target: { value: "DifferentPassword123!" },
     });
+    await act(async () => {});
+    expect(screen.getByLabelText("confirmPassword")).toHaveValue(
+      "DifferentPassword123!"
+    );
 
     expect(screen.getByText("finishButton")).toBeDisabled();
   });

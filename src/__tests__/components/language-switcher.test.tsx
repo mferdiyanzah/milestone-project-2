@@ -17,11 +17,14 @@ describe("LanguageSwitcher", () => {
     });
 
     render(<LanguageSwitcher />);
+
     const switchComponent = screen.getByRole("switch");
     fireEvent.click(switchComponent);
-
     await act(async () => {});
-
     expect(changeLanguageSpy).toHaveBeenCalledWith("id");
+
+    fireEvent.click(switchComponent);
+    await act(async () => {});
+    expect(changeLanguageSpy).toHaveBeenCalledWith("en");
   });
 });

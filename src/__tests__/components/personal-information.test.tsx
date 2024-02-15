@@ -28,8 +28,17 @@ describe("PersonalInformation", () => {
     fireEvent.change(screen.getByLabelText("fullName"), {
       target: { value: "John Doe" },
     });
+    await waitFor(() => {
+      expect(screen.getByLabelText("fullName")).toHaveValue("John Doe");
+    });
+
     fireEvent.change(screen.getByLabelText("email"), {
       target: { value: "john.doe@example.com" },
+    });
+    await waitFor(() => {
+      expect(screen.getByLabelText("email")).toHaveValue(
+        "john.doe@example.com"
+      );
     });
 
     const today = dayjs().subtract(18, "year").format("DD MMMM YYYY");
@@ -37,7 +46,7 @@ describe("PersonalInformation", () => {
     const datepicker = screen.getByLabelText("dob");
     expect(datepicker).toBeVisible();
 
-    datepicker.click();
+    fireEvent.click(datepicker);
 
     const eighteenthYearAgo = dayjs().subtract(18, "year").date();
     await waitFor(
@@ -47,7 +56,7 @@ describe("PersonalInformation", () => {
       { timeout: 1000 }
     );
 
-    screen.getByText(eighteenthYearAgo).click();
+    fireEvent.click(screen.getByText(eighteenthYearAgo));
     await waitFor(() => {
       expect(datepicker).toHaveValue(today);
     });

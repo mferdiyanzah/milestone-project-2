@@ -62,17 +62,4 @@ describe("GeneralLayout", () => {
     // Assert that the navigate function is called with "/cart"
     expect(mockUseNavigate).toHaveBeenCalledWith("/");
   });
-
-  // test("does not navigate if currentUser does not exist", () => {
-  //   useAuthSpy.mockReturnValue({ currentUser: null });
-
-  //   render(
-  //     <MemoryRouter initialEntries={["/"]}>
-  //       <GeneralLayout />
-  //     </MemoryRouter>
-  //   );
-
-  //   // Assert that the navigate function is not called
-  //   expect(navigate).not.toHaveBeenCalled();
-  // });
 });

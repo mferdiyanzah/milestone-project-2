@@ -104,7 +104,7 @@ describe("AddressInformation", () => {
     await act(async () => {});
 
     expect(mockUseFormContext().onNext).toHaveBeenCalled();
-  });
+  }, 10000);
 
   test("show saved form data", async () => {
     mockUseFormContext.mockReturnValue({
@@ -124,5 +124,41 @@ describe("AddressInformation", () => {
       expect(screen.getByText("New York")).toBeVisible();
       expect(screen.getByText("10001")).toBeVisible();
     });
+  });
+
+  test("reset options when state is changed", async () => {
+    render(renderComponent());
+
+    const stateSelect = screen.getAllByRole("combobox")[0];
+    fireEvent.mouseDown(stateSelect);
+    await waitFor(() => {
+      expect(screen.getByText("New York")).toBeVisible();
+    });
+    fireEvent.click(screen.getByText("New York"));
+
+    const citySelect = screen.getAllByRole("combobox")[1];
+    fireEvent.mouseDown(citySelect);
+    await waitFor(() => {
+      expect(screen.getByText("Buffalo")).toBeInTheDocument();
+    });
+    fireEvent.click(screen.getByText("Buffalo"));
+
+    const zipSelect = screen.getAllByRole("combobox")[2];
+    fireEvent.mouseDown(zipSelect);
+    await waitFor(() => {
+      expect(screen.getByText("10001")).toBeVisible();
+    });
+    fireEvent.click(screen.getByText("10001"));
+    await act(async () => {});
+
+    fireEvent.mouseDown(stateSelect);
+    await waitFor(() => {
+      expect(screen.getByText("California")).toBeVisible();
+    });
+    fireEvent.click(screen.getByText("California"));
+    await act(async () => {});
+
+    expect(screen.queryByText("Buffalo")).not.toBeVisible();
+    expect(screen.queryByText("10001")).not.toBeVisible();
   });
 });

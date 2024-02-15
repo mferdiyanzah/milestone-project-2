@@ -18,7 +18,6 @@ const useAuth = () => {
       password,
       users.find((user) => user.username === username)?.password ?? ""
     );
-
     if (isPasswordValid && user) {
       setCurrentUser(user);
       localStorage.setItem("currentUser", JSON.stringify(user));

@@ -16,12 +16,11 @@ describe("Cart", () => {
     expect(screen.getByText("emptyCart")).toBeInTheDocument();
   });
 
-  test("displays modal when add new product button is clicked", async () => {
+  test("displays modal when add new product button is clicked", () => {
     render(<Cart />);
 
     const addNewProductBtn = screen.getByText("addNewProduct");
     fireEvent.click(addNewProductBtn);
-    await act(async () => {});
 
     expect(screen.getByText("addProduct")).toBeInTheDocument();
     expect(
@@ -37,7 +36,7 @@ describe("Cart", () => {
 
     const addNewProductBtn = screen.getByText("addNewProduct");
     fireEvent.click(addNewProductBtn);
-    await act(async () => {});
+    expect(screen.getByText("addProduct")).toBeInTheDocument();
 
     const productNameInput = screen.getByPlaceholderText(
       "productNamePlaceholder"
@@ -46,7 +45,11 @@ describe("Cart", () => {
     const addProductBtn = screen.getByText("addProduct");
 
     fireEvent.change(productNameInput, { target: { value: "Product 1" } });
+    expect(productNameInput).toHaveValue("Product 1");
+
     fireEvent.change(quantityInput, { target: { value: 10 } });
+    expect(quantityInput).toHaveValue(10);
+
     fireEvent.click(addProductBtn);
     await act(async () => {});
 
@@ -59,7 +62,7 @@ describe("Cart", () => {
 
     const addNewProductBtn = screen.getByText("addNewProduct");
     fireEvent.click(addNewProductBtn);
-    await act(async () => {});
+    expect(screen.getByText("addProduct")).toBeInTheDocument();
 
     const productNameInput = screen.getByPlaceholderText(
       "productNamePlaceholder"
@@ -68,11 +71,15 @@ describe("Cart", () => {
     const addProductBtn = screen.getByText("addProduct");
 
     fireEvent.change(productNameInput, { target: { value: "Product 1" } });
+    expect(productNameInput).toHaveValue("Product 1");
+
     fireEvent.change(quantityInput, { target: { value: 10 } });
+    expect(quantityInput).toHaveValue(10);
+
     fireEvent.click(addProductBtn);
     await act(async () => {});
 
-    const removeBtn = screen.getByText("Delete");
+    const removeBtn = screen.getByText("delete");
     fireEvent.click(removeBtn);
     await act(async () => {});
 
