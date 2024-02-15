@@ -90,6 +90,10 @@ We used a clean and minimalist layout for the app, with plenty of white space an
 
 ![Mobile](./public/docs/doc-4.png)
 
+#### Unit Test Coverage
+
+![UT Coverage](./public/docs/doc-10.png)
+
 ### Demonstration Video
 
 [Here](https://drive.google.com/file/d/1EsVdf0iCKhtCx6Y0KEo_P2AZeqUYHT5V/view?usp=sharing)
