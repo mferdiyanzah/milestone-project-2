@@ -32,7 +32,7 @@ const LoginForm = () => {
     const values = form.getFieldsValue();
     if (login(values)) {
       messageApi.success(t("loginSuccess"));
-      navigate("/cart");
+      navigate("/");
       return;
     }
     messageApi.error(t("loginError"));

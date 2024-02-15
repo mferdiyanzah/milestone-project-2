@@ -1,9 +1,10 @@
 export default {
   preset: "ts-jest",
   verbose: true,
-  collectCoverage: false,
+  collectCoverage: true,
   collectCoverageFrom: ["src/**/*.{ts,tsx}"],
   coverageDirectory: "coverage",
   testEnvironment: "jsdom",
   setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
+  watchPathIgnorePatterns: ["<rootDir>/src/config/"],
 };

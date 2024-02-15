@@ -74,7 +74,6 @@ const AddressInformation = () => {
         (item) => item.name === capitalize(formValues.state)
       );
       const cityOptions = dummyStateCityZip[stateIdx].cities;
-      console.log(cityOptions);
       setCityOptions(cityOptions);
     }
 

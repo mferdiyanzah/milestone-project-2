@@ -1,5 +1,5 @@
 import { Flex, Layout } from "antd";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import LanguageSwitcher from "../components/language-switcher";
 import { useTranslation } from "react-i18next";
 import useAuth from "../hooks/useAuth";
@@ -7,6 +7,12 @@ import useAuth from "../hooks/useAuth";
 const DashboardLayout = () => {
   const { t } = useTranslation();
   const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  const onLogout = () => {
+    logout();
+    navigate("/auth/login");
+  };
 
   return (
     <Layout className="h-screen">
@@ -16,8 +22,7 @@ const DashboardLayout = () => {
           <LanguageSwitcher isAbsolute={false} />
           <button
             className="hover:text-gray-500 py-2 px-4 rounded"
-            onClick={logout}
-            onKeyDown={logout}
+            onClick={onLogout}
             tabIndex={0}
           >
             {t("logout")}

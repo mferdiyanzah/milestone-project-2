@@ -11,6 +11,7 @@
     "test": "jest --verbose"
   },
   "dependencies": {
+    "@testing-library/react-hooks": "^8.0.1",
     "antd": "^5.14.0",
     "dayjs": "^1.11.10",
     "i18next": "^23.8.2",

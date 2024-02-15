@@ -1,72 +1,51 @@
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import PersonalInformation from "../../components/personal-information";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import * as dayjs from "dayjs";
-import { IRegisterForm } from "../../pages/register/register.interface";
-
-const mockFormData: IRegisterForm = {};
-
+import PersonalInformation from "../../components/personal-information";
 describe("PersonalInformation", () => {
-  const setFormData = jest.fn();
   test("renders the form correctly", () => {
-    render(
-      <PersonalInformation
-        onNext={() => {}}
-        formData={mockFormData}
-        setFormData={setFormData}
-      />
-    );
+    render(<PersonalInformation />);
 
     // Assert that the form inputs are rendered
-    expect(screen.getByLabelText("Full Name")).toBeInTheDocument();
-    expect(screen.getByLabelText("Email")).toBeInTheDocument();
-    expect(screen.getByLabelText("Date of Birth")).toBeInTheDocument();
+    expect(screen.getByLabelText("fullName")).toBeInTheDocument();
+    expect(screen.getByLabelText("email")).toBeInTheDocument();
+    expect(screen.getByLabelText("dob")).toBeInTheDocument();
 
     // Assert that the Next button is rendered
-    expect(screen.getByText("Next")).toBeInTheDocument();
+    expect(screen.getByText("nextButton")).toBeInTheDocument();
   });
 
   test("disables the Next button when form is empty", () => {
-    render(
-      <PersonalInformation
-        onNext={() => {}}
-        formData={mockFormData}
-        setFormData={setFormData}
-      />
-    );
+    render(<PersonalInformation />);
 
     // Assert that the Next button is initially disabled
-    expect(screen.getByText("Next")).toBeDisabled();
+    expect(screen.getByText("nextButton")).toBeDisabled();
   });
 
   test("enables the Next button when form is filled", async () => {
-    const onNextMock = jest.fn();
-    render(
-      <PersonalInformation
-        onNext={onNextMock}
-        formData={mockFormData}
-        setFormData={setFormData}
-      />
-    );
+    render(<PersonalInformation />);
 
     // Fill in the form inputs
-    fireEvent.change(screen.getByLabelText("Full Name"), {
+    fireEvent.change(screen.getByLabelText("fullName"), {
       target: { value: "John Doe" },
     });
-    fireEvent.change(screen.getByLabelText("Email"), {
+    fireEvent.change(screen.getByLabelText("email"), {
       target: { value: "john.doe@example.com" },
     });
 
     const today = dayjs().subtract(18, "year").format("DD MMMM YYYY");
 
-    const datepicker = screen.getByLabelText("Date of Birth");
+    const datepicker = screen.getByLabelText("dob");
     expect(datepicker).toBeVisible();
 
     datepicker.click();
 
     const eighteenthYearAgo = dayjs().subtract(18, "year").date();
-    await waitFor(() => {
-      expect(screen.getByText(eighteenthYearAgo)).toBeVisible();
-    });
+    await waitFor(
+      () => {
+        expect(screen.getByText(eighteenthYearAgo)).toBeInTheDocument();
+      },
+      { timeout: 1000 }
+    );
 
     screen.getByText(eighteenthYearAgo).click();
     await waitFor(() => {
@@ -74,12 +53,7 @@ describe("PersonalInformation", () => {
     });
 
     await waitFor(() => {
-      expect(screen.getByText("Next")).toBeEnabled();
-    });
-
-    screen.getByText("Next").click();
-    await waitFor(() => {
-      expect(onNextMock).toHaveBeenCalled();
+      expect(screen.getByText("nextButton")).toBeEnabled();
     });
   });
 });

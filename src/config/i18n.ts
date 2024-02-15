@@ -1,11 +1,11 @@
 export const resources = {
   en: {
     translation: {
-      address_information: "Address Information",
-      personal_information: "Personal Information",
-      account_information: "Account Information",
+      addressInformation: "Address Information",
+      personalInformation: "Personal Information",
+      accountInformation: "Account Information",
       register: "Register",
-      register_desc:
+      registerDesc:
         "SINAU is a modern and minimalist online learning app that provides a wide range of courses and educational resources for students, professionals, and lifelong learners.",
       fullName: "Full Name",
       email: "Email",

@@ -12,7 +12,7 @@ const router = createBrowserRouter([
     element: <NotFound />,
   },
   {
-    path: "/cart",
+    path: "/",
     element: <DashboardLayout />,
     children: [
       {
