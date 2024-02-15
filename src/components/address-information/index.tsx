@@ -66,30 +66,30 @@ const AddressInformation = () => {
         setIsNextBtnDisabled(true);
       });
 
-    const formValues = form.getFieldsValue();
+    const currentFormValues = form.getFieldsValue();
 
-    if (formValues.state) {
-      setSelectedState(formValues.state);
+    if (currentFormValues.state) {
+      setSelectedState(currentFormValues.state);
       const stateIdx = dummyStateCityZip.findIndex(
-        (item) => item.name === capitalize(formValues.state)
+        (item) => item.name === capitalize(currentFormValues.state)
       );
       const cityOptions = dummyStateCityZip[stateIdx].cities;
       setCityOptions(cityOptions);
     }
 
-    if (formValues.city) {
+    if (currentFormValues.city) {
       const stateIdx = dummyStateCityZip.findIndex(
-        (item) => item.name === capitalize(formValues.state)
+        (item) => item.name === capitalize(currentFormValues.state)
       );
       const cityIdx = dummyStateCityZip[stateIdx]?.cities.findIndex(
-        (item) => item.name === capitalize(formValues.city)
+        (item) => item.name === capitalize(currentFormValues.city)
       );
       const zipOptions = dummyStateCityZip[stateIdx]?.cities[cityIdx]?.zip;
 
       setZipOptions(zipOptions);
     }
 
-    setFormData({ ...formData, ...formValues });
+    setFormData({ ...formData, ...currentFormValues });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formValues]);

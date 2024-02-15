@@ -78,15 +78,18 @@ export const resources = {
       addProduct: "Add Product",
       quantityType: "Quantity must be a positve and real number!",
       emptyCart: "Your cart is empty!",
+      unauthorized: "Unauthorized",
+      unauthorizedMessage:
+        "You are not authorized to access this page! Please login first!",
     },
   },
   id: {
     translation: {
-      address_information: "Informasi Alamat",
-      personal_information: "Informasi Pribadi",
-      account_information: "Informasi Akun",
+      addressInformation: "Informasi Alamat",
+      personalInformation: "Informasi Pribadi",
+      accountInformation: "Informasi Akun",
       register: "Daftar",
-      register_desc:
+      registerDesc:
         "SINAU adalah aplikasi pembelajaran online modern dan minimalis yang menyediakan berbagai macam kursus dan sumber daya pendidikan untuk siswa, profesional, dan pembelajar seumur hidup.",
       fullName: "Nama Lengkap",
       email: "Email",
@@ -154,6 +157,9 @@ export const resources = {
       addProduct: "Tambah Produk",
       quantityType: "Jumlah produk harus berupa angka positif!",
       emptyCart: "Keranjang Anda kosong!",
+      unauthorized: "Tidak Diizinkan",
+      unauthorizedMessage:
+        "Anda tidak diizinkan mengakses halaman ini! Silakan masuk terlebih dahulu!",
     },
   },
 };

@@ -3,11 +3,20 @@ import { Outlet, useNavigate } from "react-router-dom";
 import LanguageSwitcher from "../components/language-switcher";
 import { useTranslation } from "react-i18next";
 import useAuth from "../hooks/useAuth";
+import { useEffect } from "react";
 
 const DashboardLayout = () => {
   const { t } = useTranslation();
-  const { logout } = useAuth();
+  const { logout, currentUser } = useAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!currentUser) {
+      navigate("/unauthorized");
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const onLogout = () => {
     logout();

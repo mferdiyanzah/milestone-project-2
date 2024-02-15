@@ -10,13 +10,13 @@ const mockProduct = {
 
 describe("CartCard", () => {
   test("renders product name correctly", () => {
-    render(<CartCard product={mockProduct} />);
+    render(<CartCard product={mockProduct} onRemove={jest.fn()} />);
     const productName = screen.getByText(mockProduct.name);
     expect(productName).toBeInTheDocument();
   });
 
   test("renders product quantity correctly", () => {
-    render(<CartCard product={mockProduct} />);
+    render(<CartCard product={mockProduct} onRemove={jest.fn()} />);
     const productQuantity = screen.getByText(
       `quantity: ${mockProduct.quantity}`
     );
@@ -24,7 +24,7 @@ describe("CartCard", () => {
   });
 
   test("renders formatted price correctly", () => {
-    render(<CartCard product={mockProduct} />);
+    render(<CartCard product={mockProduct} onRemove={jest.fn()} />);
     const formattedPrice = screen.getByText("Rp 1.000");
     expect(formattedPrice).toBeInTheDocument();
   });

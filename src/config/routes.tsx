@@ -5,11 +5,22 @@ import GeneralLayout from "../layouts/general.layout";
 import Cart from "../pages/cart";
 import Login from "../pages/login";
 import NotFound from "../pages/not-found";
+import Unauthorized from "../pages/unauthorized";
 
 const router = createBrowserRouter([
   {
     path: "*",
     element: <NotFound />,
+  },
+  {
+    path: "/unauthorized",
+    element: <GeneralLayout />,
+    children: [
+      {
+        path: "",
+        element: <Unauthorized />,
+      },
+    ],
   },
   {
     path: "/",

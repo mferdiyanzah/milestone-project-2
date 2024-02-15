@@ -63,7 +63,7 @@ const LoginForm = () => {
         name="password"
         rules={[{ required: true, message: t("passwordRequired") }]}
       >
-        <Input type="password" placeholder={t("passwordPlaceholder")} />
+        <Input.Password placeholder={t("passwordPlaceholder")} />
       </Form.Item>
       <Row justify="space-between" align="middle">
         <button
