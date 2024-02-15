@@ -45,7 +45,7 @@ describe("GeneralLayout", () => {
     expect(screen.getByRole("switch")).toBeInTheDocument();
   });
 
-  test("navigates to /cart if currentUser exists", () => {
+  test("navigates to home if currentUser exists", () => {
     mockUseAuth.mockImplementation(() => ({
       currentUser: mockCurrentUser,
       login: jest.fn(),
@@ -54,13 +54,13 @@ describe("GeneralLayout", () => {
     }));
 
     render(
-      <MemoryRouter initialEntries={["/"]}>
+      <MemoryRouter initialEntries={["/test"]}>
         <GeneralLayout />
       </MemoryRouter>
     );
 
     // Assert that the navigate function is called with "/cart"
-    expect(mockUseNavigate).toHaveBeenCalledWith("/cart");
+    expect(mockUseNavigate).toHaveBeenCalledWith("/");
   });
 
   // test("does not navigate if currentUser does not exist", () => {

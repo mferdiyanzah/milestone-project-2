@@ -6,5 +6,17 @@ export default {
   coverageDirectory: "coverage",
   testEnvironment: "jsdom",
   setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
-  watchPathIgnorePatterns: ["<rootDir>/src/config/"],
+  coveragePathIgnorePatterns: [
+    "src/config",
+    "<rootDir>/src/vite-env.d.ts",
+    "<rootDir>/src/main.tsx",
+    "<rootDir>/src/App.tsx",
+  ],
+  transform: {
+    "^.+\\.(ts|tsx)?$": [
+      "ts-jest",
+      { diagnostics: { ignoreCodes: ["TS151001"] } },
+    ],
+    "^.+\\.(js|jsx)$": "babel-jest",
+  },
 };

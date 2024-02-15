@@ -5,6 +5,7 @@ import AddProductModal from "../../components/add-product-modal";
 import { IProductForm } from "../../components/add-product-modal/add-product-modal.interface";
 import CartCard from "../../components/cart-card";
 import { IProduct } from "./cart.interface";
+import { formattedPrice } from "../../utils/currency";
 
 const Cart = () => {
   const { t } = useTranslation();
@@ -17,11 +18,7 @@ const Cart = () => {
       (acc, product) => acc + product.price,
       0
     );
-    return new Intl.NumberFormat("id-ID", {
-      style: "currency",
-      currency: "IDR",
-      maximumFractionDigits: 0,
-    }).format(currentPrice);
+    return formattedPrice(currentPrice);
   }, [productList]);
 
   const handleAddProduct = (product: IProductForm) => {
@@ -51,7 +48,15 @@ const Cart = () => {
         </button>
       </Row>
       <Divider className="m-0" />
-      <Row gutter={[16, 16]}>
+      <Row
+        gutter={[
+          16,
+          {
+            xs: 16,
+            lg: 60,
+          },
+        ]}
+      >
         <Col lg={{ flex: "70%" }} xs={{ flex: "100%" }}>
           <Flex vertical gap="1em" wrap="wrap">
             {productList.length === 0 ? (

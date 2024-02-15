@@ -33,6 +33,7 @@ const LoginForm = () => {
     if (login(values)) {
       messageApi.success(t("loginSuccess"));
       navigate("/");
+      console.log("Login successful");
       return;
     }
     messageApi.error(t("loginError"));

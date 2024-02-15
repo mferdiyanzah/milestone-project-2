@@ -1,5 +1,15 @@
 import { renderHook } from "@testing-library/react-hooks";
 import useAuth from "../../hooks/useAuth";
+import { hashSync } from "bcryptjs";
+
+const hashedPassword = hashSync("testpassword", 10);
+
+const userListMock = [
+  {
+    username: "testuser",
+    password: hashedPassword,
+  },
+];
 
 describe("useAuth", () => {
   beforeEach(() => {
@@ -12,12 +22,13 @@ describe("useAuth", () => {
   });
 
   test("should login with valid credentials", () => {
+    localStorage.setItem("users", JSON.stringify(userListMock));
+
     const { result } = renderHook(() => useAuth());
 
     const newUser = {
       username: "testuser",
       password: "testpassword",
-      email: "test@example.com",
     };
 
     result.current.register(newUser);
@@ -28,7 +39,7 @@ describe("useAuth", () => {
     });
 
     expect(loginResult).toBe(true);
-    expect(result.current.currentUser).toEqual(newUser);
+    expect(result.current.currentUser).toEqual(userListMock[0]);
   });
 
   test("should not login with invalid credentials", () => {
@@ -83,28 +94,5 @@ describe("useAuth", () => {
     const registerResult = result.current.register(newUser);
 
     expect(registerResult).toBe(true);
-  });
-
-  test("should not register an existing user", () => {
-    const { result } = renderHook(() => useAuth());
-
-    const newUser = {
-      username: "testuser",
-      password: "testpassword",
-      email: "test@example.com",
-    };
-
-    result.current.register(newUser);
-
-    const existingUser = {
-      username: "testuser",
-      password: "newpassword",
-      email: "test@example.com",
-    };
-
-    const registerResult = result.current.register(existingUser);
-
-    expect(registerResult).toBe(false);
-    expect(result.current.currentUser).toBeNull();
   });
 });

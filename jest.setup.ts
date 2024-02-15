@@ -1,5 +1,12 @@
 import "@testing-library/jest-dom";
 
+jest.mock("react-i18next", () => ({
+  //eslint-disable-next-line
+  useTranslation: () => ({ t: (key: any) => key }),
+}));
+
+HTMLCanvasElement.prototype.getContext = jest.fn();
+
 Object.defineProperty(window, "matchMedia", {
   writable: true,
   value: jest.fn().mockImplementation((query) => ({

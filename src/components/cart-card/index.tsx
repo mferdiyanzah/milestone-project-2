@@ -2,15 +2,10 @@ import { Col, Divider, Row } from "antd";
 import { useTranslation } from "react-i18next";
 import { RandomAvatar } from "react-random-avatars";
 import { CartCardProps } from "./cart-card.interface";
+import { formattedPrice } from "../../utils/currency";
 
 const CartCard = ({ product, onRemove }: CartCardProps) => {
   const { t } = useTranslation();
-
-  const formattedPrice = new Intl.NumberFormat("id-ID", {
-    style: "currency",
-    currency: "IDR",
-    maximumFractionDigits: 0,
-  }).format(product.price);
 
   return (
     <Row className="pb-2 w-full">
@@ -27,7 +22,7 @@ const CartCard = ({ product, onRemove }: CartCardProps) => {
           <p className="m-0">
             {t("quantity")}: {product.quantity}
           </p>
-          <p className="m-0">{formattedPrice}</p>
+          <p className="m-0">{formattedPrice(product.price)}</p>
         </Row>
       </Col>
       <Col
@@ -36,7 +31,7 @@ const CartCard = ({ product, onRemove }: CartCardProps) => {
         className="flex justify-end"
       >
         <button className="text-red-500" onClick={onRemove}>
-          Delete
+          {t("delete")}
         </button>
       </Col>
       <Divider />

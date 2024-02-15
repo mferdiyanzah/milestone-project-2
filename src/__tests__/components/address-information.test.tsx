@@ -2,6 +2,20 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import AddressInformation from "../../components/address-information";
+import { act } from "react-dom/test-utils";
+import useFormContext from "../../pages/register/register.context";
+import { IRegisterForm } from "../../pages/register/register.interface";
+
+jest.mock("../../pages/register/register.context");
+
+const addressInformation: IRegisterForm | undefined = {
+  address: "123 Main St",
+  city: "Buffalo",
+  state: "New York",
+  zip: "10001",
+};
+
+const mockUseFormContext = jest.mocked(useFormContext);
 
 describe("AddressInformation", () => {
   const renderComponent = () => {
@@ -11,7 +25,24 @@ describe("AddressInformation", () => {
       </BrowserRouter>
     );
   };
+
+  beforeEach(() => {
+    mockUseFormContext.mockReturnValue({
+      formData: undefined,
+      setFormData: jest.fn(),
+      onNext: jest.fn(),
+      onPrev: jest.fn(),
+    });
+  });
   test("renders the form correctly", () => {
+    const mockOnNext = jest.fn();
+    mockUseFormContext.mockReturnValue({
+      formData: undefined,
+      setFormData: jest.fn(),
+      onNext: mockOnNext,
+      onPrev: jest.fn(),
+    });
+
     render(renderComponent());
 
     // Assert that the form inputs are rendered
@@ -39,6 +70,9 @@ describe("AddressInformation", () => {
     fireEvent.change(screen.getByLabelText("address"), {
       target: { value: "123 Main St" },
     });
+    await waitFor(() => {
+      expect(screen.getByLabelText("address")).toHaveValue("123 Main St");
+    });
 
     const stateSelect = screen.getAllByRole("combobox")[0];
     fireEvent.mouseDown(stateSelect);
@@ -60,9 +94,35 @@ describe("AddressInformation", () => {
       expect(screen.getByText("10001")).toBeVisible();
     });
     fireEvent.click(screen.getByText("10001"));
+    await act(async () => {});
 
     await waitFor(() => {
       expect(screen.getByText("nextButton")).toBeEnabled();
+    });
+
+    fireEvent.click(screen.getByText("nextButton"));
+    await act(async () => {});
+
+    expect(mockUseFormContext().onNext).toHaveBeenCalled();
+  });
+
+  test("show saved form data", async () => {
+    mockUseFormContext.mockReturnValue({
+      formData: addressInformation,
+      setFormData: jest.fn(),
+      onNext: jest.fn(),
+      onPrev: jest.fn(),
+    });
+
+    render(renderComponent());
+
+    await act(async () => {});
+
+    await waitFor(() => {
+      expect(screen.getByLabelText("address")).toHaveValue("123 Main St");
+      expect(screen.getByText("Buffalo")).toBeVisible();
+      expect(screen.getByText("New York")).toBeVisible();
+      expect(screen.getByText("10001")).toBeVisible();
     });
   });
 });

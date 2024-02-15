@@ -81,6 +81,7 @@ export const resources = {
       unauthorized: "Unauthorized",
       unauthorizedMessage:
         "You are not authorized to access this page! Please login first!",
+      delete: "Delete",
     },
   },
   id: {
@@ -160,6 +161,7 @@ export const resources = {
       unauthorized: "Tidak Diizinkan",
       unauthorizedMessage:
         "Anda tidak diizinkan mengakses halaman ini! Silakan masuk terlebih dahulu!",
+      delete: "Hapus",
     },
   },
 };
