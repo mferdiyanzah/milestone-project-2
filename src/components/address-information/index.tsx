@@ -65,34 +65,43 @@ const AddressInformation = () => {
       .catch(() => {
         setIsNextBtnDisabled(true);
       });
+  }, [formValues]);
 
-    const currentFormValues = form.getFieldsValue();
-
-    if (currentFormValues.state) {
-      setSelectedState(currentFormValues.state);
+  const handleFormValuesChange = (
+    changedValues: any,
+    value: IAddressInformationForm
+  ) => {
+    const formFieldName = Object.keys(changedValues)[0];
+    if (formFieldName === "state") {
+      if (value.city || value.zip) {
+        form.setFieldsValue({ city: undefined, zip: undefined });
+      }
+      setSelectedState(changedValues.state);
       const stateIdx = dummyStateCityZip.findIndex(
-        (item) => item.name === capitalize(currentFormValues.state)
+        (item) => item.name === capitalize(changedValues.state)
       );
       const cityOptions = dummyStateCityZip[stateIdx].cities;
       setCityOptions(cityOptions);
     }
 
-    if (currentFormValues.city) {
+    if (formFieldName === "city") {
+      if (value.zip) {
+        form.setFieldsValue({ zip: undefined });
+      }
+
       const stateIdx = dummyStateCityZip.findIndex(
-        (item) => item.name === capitalize(currentFormValues.state)
+        (item) => item.name === capitalize(value.state)
       );
       const cityIdx = dummyStateCityZip[stateIdx]?.cities.findIndex(
-        (item) => item.name === capitalize(currentFormValues.city)
+        (item) => item.name === capitalize(value.city)
       );
       const zipOptions = dummyStateCityZip[stateIdx]?.cities[cityIdx]?.zip;
 
       setZipOptions(zipOptions);
     }
 
-    setFormData({ ...formData, ...currentFormValues });
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [formValues]);
+    setFormData({ ...formData, ...value });
+  };
 
   const onClickNext = () => {
     const values = form.getFieldsValue();
@@ -113,6 +122,7 @@ const AddressInformation = () => {
       size="large"
       autoCorrect="off"
       autoComplete="off"
+      onValuesChange={handleFormValuesChange}
     >
       <Form.Item
         label={t("address")}

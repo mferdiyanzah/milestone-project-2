@@ -1,9 +1,11 @@
 import { Form, Input, Modal, Row } from "antd";
+import { hashSync } from "bcryptjs";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import useFormContext from "../../pages/register/register.context";
+import { IRegisterForm } from "../../pages/register/register.interface";
 
 const AccountInformation = () => {
   const { t } = useTranslation();
@@ -78,11 +80,20 @@ const AccountInformation = () => {
     ],
   };
 
-  const onClickFinish = () => {
+  const onClickFinish = async () => {
     const values = form.getFieldsValue();
     setFormData({ ...formData, ...values });
 
-    const registerData = JSON.stringify(formData);
+    const hashedPassword = hashSync(values.password, 10);
+
+    const registerPayload: IRegisterForm = {
+      ...values,
+      password: hashedPassword,
+      confirmPassword: undefined,
+    };
+
+    const registerData = JSON.stringify(registerPayload);
+
     register(JSON.parse(registerData));
     Modal.info({
       title: t("successTitle"),

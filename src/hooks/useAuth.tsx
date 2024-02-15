@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ILoginForm } from "../components/login-form/login-form.interface";
 import { IRegisterForm } from "../pages/register/register.interface";
+import { compareSync } from "bcryptjs";
 
 const useAuth = () => {
   const [currentUser, setCurrentUser] = useState<IRegisterForm | null>(
@@ -11,10 +12,14 @@ const useAuth = () => {
   );
 
   const login = ({ username, password }: ILoginForm) => {
-    const user = users.find(
-      (user) => user.username === username && user.password === password
+    const user = users.find((user) => user.username === username);
+
+    const isPasswordValid = compareSync(
+      password,
+      users.find((user) => user.username === username)?.password ?? ""
     );
-    if (user) {
+
+    if (isPasswordValid && user) {
       setCurrentUser(user);
       localStorage.setItem("currentUser", JSON.stringify(user));
       return true;

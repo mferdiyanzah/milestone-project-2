@@ -1,17 +1,13 @@
 import { Col, Divider, Flex, Row, Space } from "antd";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
 import AddProductModal from "../../components/add-product-modal";
-import CartCard from "../../components/cart-card";
-import useAuth from "../../hooks/useAuth";
-import { IProduct } from "./cart.interface";
 import { IProductForm } from "../../components/add-product-modal/add-product-modal.interface";
+import CartCard from "../../components/cart-card";
+import { IProduct } from "./cart.interface";
 
 const Cart = () => {
   const { t } = useTranslation();
-  const { currentUser } = useAuth();
-  const navigate = useNavigate();
   const [isAddProductModalVisible, setIsAddProductModalVisible] =
     useState(false);
   const [productList, setProductList] = useState<IProduct[]>([]);
@@ -27,8 +23,6 @@ const Cart = () => {
       maximumFractionDigits: 0,
     }).format(currentPrice);
   }, [productList]);
-
-  if (!currentUser) navigate("/auth/register");
 
   const handleAddProduct = (product: IProductForm) => {
     const productData: IProduct = {
