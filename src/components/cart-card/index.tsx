@@ -1,9 +1,9 @@
 import { Col, Divider, Row } from "antd";
 import { useTranslation } from "react-i18next";
-import { IProduct } from "../../pages/cart/cart.interface";
 import { RandomAvatar } from "react-random-avatars";
+import { CartCardProps } from "./cart-card.interface";
 
-const CartCard = ({ product }: { product: IProduct }) => {
+const CartCard = ({ product, onRemove }: CartCardProps) => {
   const { t } = useTranslation();
 
   const formattedPrice = new Intl.NumberFormat("id-ID", {
@@ -19,7 +19,7 @@ const CartCard = ({ product }: { product: IProduct }) => {
       </Col>
       <Col
         xs={{ flex: "100%" }}
-        lg={{ flex: "80%" }}
+        lg={{ flex: "70%" }}
         className="flex justify-between flex-col font-semibold"
       >
         <h3 className="m-0 text-xl">{product.name}</h3>
@@ -29,6 +29,15 @@ const CartCard = ({ product }: { product: IProduct }) => {
           </p>
           <p className="m-0">{formattedPrice}</p>
         </Row>
+      </Col>
+      <Col
+        xs={{ flex: "100%" }}
+        lg={{ flex: "10%" }}
+        className="flex justify-end"
+      >
+        <button className="text-red-500" onClick={onRemove}>
+          Delete
+        </button>
       </Col>
       <Divider />
     </Row>

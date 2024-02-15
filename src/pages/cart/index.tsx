@@ -40,6 +40,11 @@ const Cart = () => {
     setProductList([...productList, productData]);
   };
 
+  const handleDeleteProduct = (id: number) => {
+    const newProductList = productList.filter((product) => product.id !== id);
+    setProductList(newProductList);
+  };
+
   return (
     <Space direction="vertical" size="large" className="mx-0 w-full xl:w-4/6">
       <Row justify="space-between" align="middle">
@@ -59,7 +64,11 @@ const Cart = () => {
               <h2 className="text-2xl">{t("emptyCart")}</h2>
             ) : (
               productList.map((product) => (
-                <CartCard key={product.id} product={product} />
+                <CartCard
+                  key={product.id}
+                  product={product}
+                  onRemove={() => handleDeleteProduct(product.id)}
+                />
               ))
             )}
           </Flex>

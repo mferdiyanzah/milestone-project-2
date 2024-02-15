@@ -15,7 +15,7 @@ const Login = () => {
         <div>
           <h1 className=" text-7xl font-bold m-0 text-blue-900">SINAU</h1>
           <h3 className="mb-4 text-xl">{t("login")}</h3>
-          <p className="text-sm">{t("register_desc")}</p>
+          <p className="text-sm">{t("registerDesc")}</p>
         </div>
       </Col>
       <Col
